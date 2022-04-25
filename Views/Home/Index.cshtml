@@ -1,0 +1,58 @@
+﻿@model OpenAQ.Models.CityViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h2>CHECK AIR QUALITY</h2>
+</div>
+
+<br />
+
+<div class="row">
+    <div class="col-6">
+        <h4>Select City : </h4>
+        <br />
+        <form method="post" action="/Home/GetCityByName/">
+            @Html.DropDownList("City", new SelectList(@ViewBag.Cities, "Value", "Text"), new { @class = "form-control" })
+            <br />
+            <input type="submit" class="btn btn-primary form-control" value="Search" />
+        </form>
+    </div>
+</div>
+
+<br />
+<br />
+
+<div class="row">
+    <div class="col-12">
+        @if (Model != null)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>City</th>
+                        <th>Air Quality Count</th>
+                        <th>Country</th>
+                        <th>Parameters</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Model.City</td>
+                        <td>@Model.Count</td>
+                        <td>@Model.Country</td>
+                        <td>
+                            @foreach(var param in Model.Parameters)
+                            {
+                                <label>@param</label>
+                                <br />
+                            }
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
